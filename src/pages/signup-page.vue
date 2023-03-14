@@ -2,7 +2,7 @@
   <div id="colorPage">
     <div id="colorBody">
       <div class="q-gutter q-pa" id="signUp">Sign up</div>
-      <q-form @submit="onSubmit">
+      <q-form @submit.prevent="submitSignUp">
         <q-input
           class="nameBox"
           type="text"
@@ -47,10 +47,11 @@
         <div>
           <q-btn
             class="signupSubmit"
-            to="/home"
             label="SIGN UP"
-            type="submit"
+            @click="submitSignUp"
+            v-model="message"
           />
+          <!-- <button class="signupSubmit" @click="submitSignUp">SIGN UP</button> -->
         </div>
       </q-form>
     </div>
@@ -58,32 +59,49 @@
 </template>
 
 <script>
-import { useQuasar } from 'quasar'
-import { ref } from 'vue'
+// import { useQuasar } from 'quasar'
+// import { ref } from 'vue'
 // import db from "src/boot/firebase.js";
 
-export default {
-  setup () {
-    const $q = useQuasar()
-    const name = ref(null)
-    const email = ref(null)
-    const pass = ref(null)
-    const confirmPass = ref(null)
-    return {
-      name,
-      email,
-      pass,
-      confirmPass,
+import firebase from 'boot/firebase'
 
-      onSubmit () {
-        $q.notify({
-          color: 'green-4',
-          textColor: 'white',
-          icon: 'cloud_done',
-          message: 'Submitted'
+export default {
+
+  data () {
+    return {
+      name: '',
+      email: '',
+      pass: '',
+      confirmPass: '',
+      message: ''
+    }
+  },
+  methods: {
+    submitSignUp () {
+      if (this.pass !== this.confirmPass) {
+        this.confirmPass = ''
+        // this.message.$notify({
+        //   title: 'Notification Error',
+        //   text: 'Notification Message',
+        //   type: 'error'
+        // })
+      } else {
+        firebase.database().ref('path/to/data').set({
+          key1: 'value1',
+          key2: 'value2',
+          key3: 'value3',
+          key4: 'value4'
         })
+          .then(() => {
+            console.log('Data has been written successfully.')
+          })
+          .catch(error => {
+            console.error(error)
+          })
       }
+      // Do something with the username and password here
     }
   }
 }
+
 </script>
