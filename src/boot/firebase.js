@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app'
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/firestore'
 // import { getAnalytics } from 'firebase/analytics'
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -9,7 +10,7 @@ import { initializeApp } from 'firebase/app'
 const firebaseConfig = {
   apiKey: 'AIzaSyB3jR_pw0hSzARJaEVMUzNdiZe5zKROaPk',
   authDomain: 'psu-banking-16.firebaseapp.com',
-  databaseURL: 'https://console.firebase.google.com/u/0/project/psu-banking-16/database/psu-banking-16-default-rtdb/data/~2F',
+  databaseURL: 'https://psu-banking-16-default-rtdb.asia-southeast1.firebasedatabase.app',
   projectId: 'psu-banking-16',
   storageBucket: 'psu-banking-16.appspot.com',
   messagingSenderId: '1058339793157',
@@ -18,6 +19,7 @@ const firebaseConfig = {
 }
 
 // Initialize Firebase
-const firebase = initializeApp(firebaseConfig)
-console.log(firebase)
-export default firebase
+firebase.initializeApp(firebaseConfig)
+const db = firebase.firestore()
+const myCollection = db.collection('userCollection')
+export default myCollection

@@ -44,7 +44,14 @@ module.exports = configure(function (ctx) {
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
       'roboto-font', // optional, you are not bound to it
-      'material-icons' // optional, you are not bound to it
+      'material-icons',
+      'mdi-v6',
+      'ionicons-v4', // last webfont was available in v4.6.3
+      'eva-icons',
+      'fontawesome-v6',
+      'themify',
+      'line-awesome',
+      'bootstrap-icons'  // optional, you are not bound to it
     ],
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-build

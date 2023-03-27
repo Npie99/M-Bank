@@ -61,9 +61,15 @@
 <script>
 // import { useQuasar } from 'quasar'
 // import { ref } from 'vue'
-// import db from "src/boot/firebase.js";
+import myCollection from 'src/boot/firebase.js'
 
-import firebase from 'boot/firebase'
+// const userCollection = db.collection('my-collection')
+
+function getRandumNumber (length) {
+  const min = Math.pow(10, (length - 1))
+  const max = Math.pow(10, (length))
+  return Math.floor(Math.random() * (max - min) + min)
+}
 
 export default {
 
@@ -86,18 +92,14 @@ export default {
         //   type: 'error'
         // })
       } else {
-        firebase.database().ref('path/to/data').set({
-          key1: 'value1',
-          key2: 'value2',
-          key3: 'value3',
-          key4: 'value4'
+        const docRef = myCollection.add({
+          name: this.name,
+          email: this.email,
+          password: this.pass,
+          number: getRandumNumber(10),
+          balance: 0
         })
-          .then(() => {
-            console.log('Data has been written successfully.')
-          })
-          .catch(error => {
-            console.error(error)
-          })
+        console.log('Document written with ID: ', docRef.id)
       }
       // Do something with the username and password here
     }
